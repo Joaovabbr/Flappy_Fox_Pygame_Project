@@ -1,0 +1,13 @@
+import pygame
+
+pygame.init()
+
+tela = pygame.display.set_mode((500, 400))
+pygame.display.set_caption('Hello World!')
+
+jogando = True
+
+while jogando:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            jogando = False
