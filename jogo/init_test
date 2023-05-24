@@ -35,7 +35,6 @@ rap_y = 0
 
 class raposa(pygame.sprite.Sprite):
     def _init_(self, img):
-        # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite._init_(self)
 
         self.image = img
@@ -54,9 +53,8 @@ class raposa(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.left = 0
 
-
-todos_sprites = pygame.sprite.Group()
 jogador = raposa(img_raposa)
+todos_sprites = pygame.sprite.Group()
 todos_sprites.add(jogador)
 
 while jogando:
