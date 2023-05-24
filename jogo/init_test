@@ -13,9 +13,9 @@ tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flappy Fox')
 
 #imagens
-img_raposa = pygame.image.load('jogo/sprites/img_rap.png').convert()
+img_raposa = pygame.image.load('sprites/img_raposa.PNG').convert()
 img_raposa = pygame.transform.scale(img_raposa, (L, A))
-img_fundo = pygame.image.load('jogo/sprites/wallpaper.jpg').convert()
+img_fundo = pygame.image.load('sprites/wallpaper.jpg').convert()
 
 #crinado variavel de rodar o jogo
 jogando = True
