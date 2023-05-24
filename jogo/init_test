@@ -13,7 +13,7 @@ tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flappy Fox')
 
 #imagens
-img_raposa = pygame.image.load('sprites/img_rap.png').convert()
+img_raposa = pygame.image.load('sprites/img_rap.png').convert_alpha()
 img_raposa = pygame.transform.scale(img_raposa, (L, A))
 img_fundo = pygame.image.load('sprites/wallpaper.jpg').convert()
 
@@ -34,8 +34,9 @@ rap_y = 0
 
 
 class raposa(pygame.sprite.Sprite):
-    def _init_(self, img):
-        pygame.sprite.Sprite._init_(self)
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
