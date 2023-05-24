@@ -2,38 +2,80 @@ import pygame
 
 pygame.init()
 
-tela = pygame.display.set_mode((500, 400))
+
+#imagens
+img_raposa = pygame.image.load('jogo/sprites/img_rap.png').convert()
+img_fundo = pygame.image.load('jogo/sprites/wallpaper.jpg').convert()
+
+#criando a tela de jogo
+LARGURA = 500
+ALTURA = 400
+tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Hello World!')
 tela.fill((255, 255, 255)) 
+tela.blit(img_fundo, (0,0))
 
+#crinado variavel de rodar o jogo
 jogando = True
 
+# clock
 relogio = pygame.time.Clock()
 FPS = 20
 
-GRAVIDADE = 2
+ACELERACAO = 2
 
-altura = 10
 vel_rap_x = 0
 vel_rap_y = 0
 
+rap_x = 0
+rap_y = 0
 
+
+class raposa(pygame.sprite.Sprite):
+    def _init_(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite._init_(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.centerx = LARGURA / 2
+        self.rect.bottom = ALTURA - 10
+        self.speedx = 0
+
+    def update(self):
+        # Atualização da posição da nave
+        self.rect.x += self.speedx
+
+        # Mantem dentro da tela
+        if self.rect.right > LARGURA:
+            self.rect.right = LARGURA
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+raposa_i = raposa()
+raposa_i.image
+
+todos_sprites = pygame.sprite.Group()
+jogador = raposa()
 
 while jogando:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogando = False
         
-        if event.type == pygame.KEYUP:
+        if event.type == pygame.KEYDOWN:
             if event.type == pygame.K_SPACE:
-                vel_rap_x = +10
-
-            else:
-                vel_rap_x = - GRAVIDADE
+                vel_rap_x -= 10
 
 
+vel_rap_y += ACELERACAO
+rap_y += vel_rap_y
 
 
 
-    pygame.display.update()  
 
+
+
+
+
+pygame.display.update()
