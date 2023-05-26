@@ -1,5 +1,8 @@
+# importando bibliotecas necessárias(pygame e random)
 import pygame
+import random
 
+#iniciando o pygame
 pygame.init()
 
 
@@ -7,15 +10,22 @@ pygame.init()
 #criando a tela de jogo
 LARGURA = 500
 ALTURA = 400
-L = 50
-A = 40
+
+#criando a tela do jogo
 tela = pygame.display.set_mode((LARGURA, ALTURA))
+#dando um titulo à tela, nome do jogo
 pygame.display.set_caption('Flappy Fox')
+
+#valores de largura e altura para a imagem da raposa
+LARGURA_IMAGEM = 50
+ALTURA_IMAGEM = 40
 
 #imagens
 img_raposa = pygame.image.load('sprites/img_rap.png').convert_alpha()
-img_raposa = pygame.transform.scale(img_raposa, (L, A))
+img_raposa = pygame.transform.scale(img_raposa, (LARGURA_IMAGEM, ALTURA_IMAGEM))
 img_fundo = pygame.image.load('sprites/wallpaper.jpg').convert()
+img_tubo = pygame.image.load('sprites/tubo.png').convert_alpha()
+img_tubo = pygame.transform.scale(img_tubo, (LARGURA_IMAGEM, ALTURA_IMAGEM))
 
 #crinado variavel de rodar o jogo
 jogando = True
@@ -24,39 +34,66 @@ jogando = True
 relogio = pygame.time.Clock()
 FPS = 20
 
+#gravidade
 ACELERACAO = 2
 
-vel_rap_x = 0
-vel_rap_y = 0
+#velocidade tubos
+VELOCIDADE_TUBOS = 4
 
-rap_x = 0
-rap_y = 0
+#criando variavel para indicar o espacoe entre tubos
+ESPACO_ENTRE_TUBOS = 5
 
 
+#classe para criar a imagem da raposa
 class raposa(pygame.sprite.Sprite):
     def __init__(self, img):
-        # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = img
+        self.image = img_raposa
         self.rect = self.image.get_rect()
         self.rect.centerx = LARGURA / 2
         self.rect.bottom = ALTURA - 10
-        self.speedx = 0
+        self.speed_y = 0
 
     def update(self):
-        # Atualização da posição da nave
-        self.rect.x += self.speedx
+        self.speed_y += ACELERACAO
+        self.rect.centery += self.speed_y
 
-        # Mantem dentro da tela
-        if self.rect.right > LARGURA:
-            self.rect.right = LARGURA
-        if self.rect.left < 0:
-            self.rect.left = 0
+        if self.rect.bottom > ALTURA:
+            self.rect.bottom = ALTURA
 
-jogador = raposa(img_raposa)
+#classe para criar imagem do tubo
+class Tubo(pygame.sprite.Sprite):
+    def _init_(self, x, y, altura):
+        pygame.sprite.Sprite._init_(self)
+        self.image = pygame.Surface((LARGURA_IMAGEM, altura))
+        self.image.fill((0, 255, 0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        self.rect.x -= VELOCIDADE_TUBOS
+
+# criando uma lista para sprites da raposa
 todos_sprites = pygame.sprite.Group()
-todos_sprites.add(jogador)
+
+#adicionando a raposa à lista de todos os sprites
+raposa_jogo = raposa(img_raposa)
+
+# criando uma lista para sprites dos tubos
+tubos = pygame.sprite.Group()
+
+
+# função para criar tubos
+def criar_tubos():
+    tamanho = random.randint(50, ALTURA - 150)
+    tubo_superior = Tubo(LARGURA, 0, tamanho)
+    tubo_inferior = Tubo(LARGURA, tamanho + ESPACO_ENTRE_TUBOS, ALTURA - tamanho - ESPACO_ENTRE_TUBOS)
+    tubos.add(tubo_superior)
+    tubos.add(tubo_inferior)
+
+
 
 while jogando:
     for event in pygame.event.get():
@@ -65,15 +102,25 @@ while jogando:
         
         if event.type == pygame.KEYDOWN:
             if event.type == pygame.K_SPACE:
-                vel_rap_x -= 10
+                raposa_jogo.speed_y = -10
 
     tela.fill((255, 255, 255)) 
     tela.blit(img_fundo, (0,0))
+
+    todos_sprites.update()
     todos_sprites.draw(tela)
 
+    if pygame.sprite.spritecollide(raposa_jogo, tubos, False):
+        jogando = False
 
-    vel_rap_y += ACELERACAO
-    rap_y += vel_rap_y
-
+    if len(tubos) < 3:
+        criar_tubos()
+    
+    for tubo in tubos.copy():
+        if tubo.rect.right < 0:
+            tubos.remove(tubo)
 
     pygame.display.update()
+    relogio.tick(FPS)
+
+pygame.quit()
