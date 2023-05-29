@@ -215,7 +215,7 @@ todos_sprites.add(raposa_jogo)
 tubos = pygame.sprite.Group()
 
 def criar_tubos(xpos):
-    tamanho = random.randint(100, 170)
+    tamanho = random.randint(100, 210)
     tubo_inferior = Tubo(False, xpos, tamanho)
     tubo_superior = Tubo(True, xpos, tamanho + ESPACO_ENTRE_TUBOS)
     return (tubo_inferior, tubo_superior)
@@ -248,6 +248,7 @@ while jogando:
                 VELOCIDADE_TUBOS = VELOCIDADE_TUBOS + 0.5
 
     texto_pontos(str(pontos), font, amarelo, 450,0)
+    
     
     if pygame.sprite.spritecollide(raposa_jogo, tubos, False, pygame.sprite.collide_mask):
         jogando = False
