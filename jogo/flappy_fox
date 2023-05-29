@@ -281,5 +281,3 @@ while not jogando:
 
     pygame.display.flip()
     pygame.display.update()
-
-
