@@ -1,7 +1,7 @@
 import pygame
 import random
 import time
-
+import textwrap
 pygame.init()
 
 #CRIANDO TELA DE CRÉDITOS
@@ -22,15 +22,15 @@ time.sleep(3)
 tela_creditos.fill((0, 0, 0))
 pygame.display.flip()
 
-#CRIANDO TELAS DE STORYTELLING
+#CRIANDO TELAS DE STORYTELLING/INSTRUÇÕES
 
 # Importando as bibliotecas necessárias.
 from os import path
 
 # Dados gerais do jogo.
-TITULO = 'Exemplo de Animação de Texto'
-WIDTH = 800 # Largura da tela
-HEIGHT = 600 # Altura da tela
+TITULO = 'STORYTELLING/INSTRUÇÕES'
+WIDTH = 900 # Largura da tela
+HEIGHT = 500 # Altura da tela
 FPS = 60 # Frames por segundo
 
 # Define algumas variáveis com as cores básicas
@@ -42,25 +42,27 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
 # Define a sequência de textos
-TEXT_STATES = [
-    'Você sabia que a raposa é\n o mascote oficial do Insper?',
-    'Então, ela se perdeu da Vila OLímpia\n e agora está vivendo uma aventura na floresta',
-    'Ajude ela a passar pelos obstáculos e \nsobreviver até ser resgatada!!'
+TEXT2_STATES = [
+    'Você sabia que a raposa é o mascote oficial do Insper?',
+    'Então, ela se perdeu da Vila OLímpia e agora está vivendo uma aventura na floresta',
+    'Ajude ela a passar pelos obstáculos e sobreviver até ser resgatada!!',
+    'Aperte espaço para iniciar o jogo e fazer a raposa pular'
+
 ]
 
-def game_screen(screen):
+def game_tela_st(tela_st):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
     # Carrega a fonte pixel
     fonte_pixel2 = "dogica.ttf"
-    fonte_tamanho2 = 12
-    fonte2 = pygame.font.Font(fonte_pixel2, fonte_tamanho)
+    fonte_tamanho2 = 13
+    fonte2 = pygame.font.Font(fonte_pixel2, fonte_tamanho2)
 
     # Vamos utilizar esta variável para controlar o texto a ser mostrado
-    text_index = 0
+    text2_index = 0
     game = True
-    while text_index < len(TEXT_STATES) and game:
+    while text2_index < len(TEXT2_STATES) and game:
 
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
@@ -76,19 +78,27 @@ def game_screen(screen):
             if event.type == pygame.KEYDOWN:
                 # Dependendo da tecla, altera o estado do jogador.
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
-                    text_index += 1
+                    text2_index += 1
 
         # Depois de processar os eventos.
         # Atualiza o texto a ser mostrado na tela
-        if text_index < len(TEXT_STATES):
-            text = TEXT_STATES[text_index]
+        if text2_index < len(TEXT2_STATES):
+            text2 = TEXT2_STATES[text2_index]
         else:
-            text = ''
-        text_image = fonte2.render(text, True, WHITE)
+            text2 = ''
+        text2_image = fonte2.render(text2, True, WHITE)
+
+        # Quebra o texto em linhas para caber na tela
+        linhas = textwrap.wrap(text2, 100)
+        y = 10
+        for linha in linhas:
+            text2_image = fonte2.render(linha, True, WHITE)
+            tela_st.blit(text2_image, (10, y))
+            y += fonte.get_height() + 10
 
         # A cada loop, redesenha o fundo e os sprites
-        screen.fill(BLACK)
-        screen.blit(text_image, (10, 10))
+        tela_st.fill(BLACK)
+        tela_st.blit(text2_image, (10, 10))
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -99,7 +109,7 @@ pygame.init()
 pygame.mixer.init()
 
 # Tamanho da tela.
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+tela_st = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Nome do jogo
 pygame.display.set_caption(TITULO)
@@ -112,7 +122,7 @@ print('Aperte a tecla espaço para avançar para o próximo texto.')
 
 # Comando para evitar travamentos.
 try:
-    game_screen(screen)
+    game_tela_st(tela_st)
 finally:
     pygame.quit()
 
