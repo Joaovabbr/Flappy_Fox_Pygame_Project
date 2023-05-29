@@ -3,26 +3,25 @@ import random
 import time
 
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+#CRIANDO TELA DE CRÉDITOS
 
-# Carrega a fonte pixelada
-font_path = "Pixelmania.ttf"
-font_size = 24
-font = pygame.font.Font(font_path, font_size)
+tela_creditos = pygame.display.set_mode((800, 600))
 
-# Tela inicial de créditos
-text = font.render("POWERED BY IRA", True, (255, 255, 255))
+fonte_pixel = "Pixelmania.ttf"
+fonte_tamanho = 24
+fonte = pygame.font.Font(fonte_pixel, fonte_tamanho)
+
+texto = fonte.render("POWERED BY IRA", True, (255, 255, 255))
 text_rect = text.get_rect(center=(400, 300))
-screen.blit(text, text_rect)
+tela_creditos.blit(texto, text_rect)
 pygame.display.flip()
 
-# Aguarda 3 segundos
 time.sleep(3)
 
-# Tela inicial do jogo
-screen.fill((0, 0, 0))
+tela_creditos.fill((0, 0, 0))
 pygame.display.flip()
 
+#VARIAVEIS DO JOGO
 
 LARGURA = 900
 ALTURA = 500  
@@ -140,5 +139,43 @@ while jogando:
 
     relogio.tick(FPS)
     pygame.display.update()
+
+#TELA DE GAME OVER (GO)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+tela_go_largura = 800
+tela_go_altura = 600
+tela_go = pygame.display.set_mode((tela_go_largura, tela_go_altura))
+pygame.display.set_caption("Game Over")
+
+font_path = "Pixelmania.ttf"
+font_size = 48
+font = pygame.font.Font(font_path, font_size)
+
+game_over_text = font.render("Game Over", True, WHITE)
+restart_text = font.render("Click to Restart", True, WHITE)
+
+game_over_rect = game_over_text.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 - 50))
+restart_rect = restart_text.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 + 50))
+
+#se nao estiver mais jogando:
+jogando = False
+while jogando:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            jogando = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:  # Verificar se o mouse foi clicado
+            jogando = False
+
+    # Preencher a tela com a cor preta
+    screen.fill(BLACK)
+
+    # Desenhar o texto na tela
+    screen.blit(game_over_text, game_over_rect)
+    screen.blit(restart_text, restart_rect)
+
+    pygame.display.flip()
+
 
 pygame.quit()
