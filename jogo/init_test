@@ -3,6 +3,7 @@ import random
 import time
 
 pygame.init()
+
 #CRIANDO TELA DE CRÉDITOS
 
 tela_creditos = pygame.display.set_mode((800, 600))
@@ -12,8 +13,8 @@ fonte_tamanho = 24
 fonte = pygame.font.Font(fonte_pixel, fonte_tamanho)
 
 texto = fonte.render("POWERED BY IRA", True, (255, 255, 255))
-text_rect = texto.get_rect(center=(400, 300))
-tela_creditos.blit(texto, text_rect)
+texto_rect = texto.get_rect(center=(400, 300))
+tela_creditos.blit(texto, texto_rect)
 pygame.display.flip()
 
 time.sleep(3)
@@ -156,18 +157,16 @@ game_over_rect = game_over_texto.get_rect(center=(tela_go_largura // 2, tela_go_
 restart_rect = restart_texto.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 + 50))
 
 #se nao estiver mais jogando:
-jogando = False
-while jogando:
+
+while not jogando:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogando = False
         elif event.type == pygame.MOUSEBUTTONDOWN:  # Verificar se o mouse foi clicado
             jogando = False
 
-    # Preencher a tela com a cor preta
     tela_go.fill(BLACK)
 
-    # Desenhar o texto na tela
     tela_go.blit(game_over_texto, game_over_rect)
     tela_go.blit(restart_texto, restart_rect)
 
