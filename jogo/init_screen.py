@@ -30,12 +30,12 @@ def init_screen(screen):
     # jogo = Botao(assets, 'Instruções')
 
     jogo.rect.x = x
-    jogo.rect.centery = y + 50
+    jogo.rect.centery = y + 90
     all_buttons.add(jogo)
     
     jogo1 = Botao(assets, "Instruções")
     jogo1.rect.x = x + 400
-    jogo1.rect.centery = y + 50 
+    jogo1.rect.centery = y + 90 
     all_buttons.add(jogo1)
 
     # Criando segunda fileira de Botões
@@ -88,7 +88,7 @@ def init_screen(screen):
         text_rect = tela_texto.get_rect()
         text_rect.centerx = WIDTH / 2
         text_rect.centery = 200
-        screen.blit(assets['titulo'], (140, 110))
+        screen.blit(assets['titulo'], (140, 90))
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
