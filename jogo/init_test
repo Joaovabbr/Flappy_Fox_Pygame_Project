@@ -27,11 +27,11 @@ jogando = True
 tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flappy Fox')
 
-img_raposa = pygame.image.load('img/img_rap.png').convert_alpha()
+img_raposa = pygame.image.load('sprites/img_rap.png').convert_alpha()
 img_raposa = pygame.transform.scale(img_raposa, (LARGURA_RAPOSA, ALTURA_RAPOSA))
-img_fundo = pygame.image.load('img/wallpaper.webp').convert()
+img_fundo = pygame.image.load('sprites/wallpaper.webp').convert()
 img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
-img_tubo = pygame.image.load('img/tubo.PNG').convert_alpha()
+img_tubo = pygame.image.load('sprites/tubo.PNG').convert_alpha()
 img_tubo = pygame.transform.scale(img_tubo, (LARGURA_TUBO, ALTURA_TUBO)) 
 
 class Raposa(pygame.sprite.Sprite):
