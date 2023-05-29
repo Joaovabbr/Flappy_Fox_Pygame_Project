@@ -2,10 +2,11 @@
 # ----- Importa e inicia pacotes
 import pygame
 import random
-from config import WIDTH, HEIGHT, INIT, GAME, QUIT, GAME_OVER
+from config import WIDTH, HEIGHT, INIT, GAME, QUIT, GAME_OVER, INSTRUCOES
 from init_screen import init_screen
 from game_screen import game_screen
 from tela_final import tela_final
+from tela_instrucoes import tela_instrucoes
 
 pygame.init()
 pygame.mixer.init()
@@ -20,6 +21,8 @@ while state != QUIT:
         state = init_screen(window)
     elif state == GAME:
         state = game_screen(window)
+    elif state == INSTRUCOES:
+        state = tela_instrucoes(window)
     elif state == GAME_OVER:
         state = tela_final(window)
         

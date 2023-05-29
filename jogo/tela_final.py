@@ -34,14 +34,14 @@ def tela_final(screen):
     jogo.rect.centery = y + 150
     all_buttons.add(jogo)
 
-    jogo = Botao(assets, "Quit")
-    jogo.rect.x = x + 550
-    jogo.rect.centery = y + 150
-    x+= jogo.rect.width + espacamento
+    jogo1 = Botao(assets, "Quit")
+    jogo1.rect.x = x + 550
+    jogo1.rect.centery = y + 150
+    x+= jogo1.rect.width + espacamento
     espacamento = (WIDTH - (medidas_botao.rect.width * 3))/ 4
     x = espacamento
     y += medidas_botao.rect.height + 500
-    all_buttons.add(jogo)
+    all_buttons.add(jogo1)
     
     running = True
     while running:
@@ -61,8 +61,11 @@ def tela_final(screen):
                 running = False
             
             if event.type == pygame.MOUSEBUTTONDOWN:
-                state = GAME
-                running = False
+                if jogo.rect.collidepoint(event.pos):
+                    state = GAME
+                    running = False
+                if jogo1.rect.collidepoint(event.pos):
+                    pygame.quit()
 
             if event.type == pygame.MOUSEMOTION:
                 #Alterando cor do botão

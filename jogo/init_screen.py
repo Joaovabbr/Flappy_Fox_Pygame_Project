@@ -2,7 +2,7 @@ import pygame
 import random
 from os import path
 from sprites import Botao
-from config import IMG_DIR, GREEN, FPS, GAME, QUIT, WIDTH, HEIGHT, BLACK
+from config import IMG_DIR, GREEN, FPS, GAME, QUIT, WIDTH, HEIGHT, BLACK, INSTRUCOES
 from assets import load_assets
 
 
@@ -57,8 +57,14 @@ def init_screen(screen):
                 running = False
             
             if event.type == pygame.MOUSEBUTTONDOWN:
-                state = GAME
-                running = False
+                if jogo.rect.collidepoint(event.pos):
+                    state = GAME
+                    running = False
+                if jogo1.rect.collidepoint(event.pos):
+                    state = INSTRUCOES
+                    running = False
+
+
 
             if event.type == pygame.MOUSEMOTION:
                 #Alterando cor do botão

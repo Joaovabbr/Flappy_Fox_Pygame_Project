@@ -1,6 +1,6 @@
 import pygame
 import os
-from config import IMG_DIR, SND_DIR, FNT_DIR
+from config import IMG_DIR, SND_DIR, FNT_DIR, WIDTH, HEIGHT
 
 
 def load_assets():
@@ -16,6 +16,8 @@ def load_assets():
     assets['btn_hover'] = pygame.transform.scale(assets['btn_hover'], (300, 200))
     assets['titulo'] = pygame.image.load(os.path.join(IMG_DIR, 'titulo.png')).convert_alpha()
     assets['titulo'] = pygame.transform.scale(assets['titulo'], (600, 400 ))
+    assets['instrucoes'] = pygame.image.load(os.path.join(IMG_DIR, 'instrucoes.jpg')).convert_alpha()
+    assets['instrucoes'] = pygame.transform.scale(assets['instrucoes'], (700, 450 ))
 
     #carregando Fonte
     assets['font'] = pygame.font.Font(os.path.join(FNT_DIR, 'PressStart2P.ttf'), 22)
