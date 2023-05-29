@@ -28,9 +28,14 @@ def init_screen(screen):
 
     # jogo = Botao(assets, 'Instruções')
 
-    jogo.rect.x = x
+    jogo.rect.x = x- 170
     jogo.rect.centery = y + 90
+
+    jogo1 = Botao(assets, "Instruções")
+    jogo1.rect.x = x + 190
+    jogo1.rect.centery = y + 90
     all_buttons.add(jogo)
+    all_buttons.add(jogo1)
 
     # Criando segunda fileira de Botões
     

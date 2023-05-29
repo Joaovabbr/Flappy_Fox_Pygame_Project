@@ -2,12 +2,13 @@ import pygame
 import random
 from config import FPS, WIDTH, HEIGHT, GREEN, WHITE
 from assets import load_assets
+from tela_final import tela_final
 
 
 
 
 
-def game_screen(window):
+def game_screen(screen):
     LARGURA = 900
     ALTURA = 500  
 
@@ -150,6 +151,6 @@ def game_screen(window):
         relogio.tick(FPS)
         pygame.display.update()
 
-    pygame.quit()
+    state = tela_final(screen)
 
-    return jogando
+    return state
