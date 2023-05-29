@@ -19,25 +19,29 @@ def tela_final(screen):
     # O espaçamento é feito através da largura da janela menos o 
     # espaço necessário para posicionar 4 botões
     # depois é calculado o tamanho para 5 espaços vazios
-    x = WIDTH/2 - 160
+    x = WIDTH/2 - 300
     y = HEIGHT /2
 
     # Criando primeira fileira com 4 botões
+    espacamento = (WIDTH - (medidas_botao.rect.width * 4))/ 5
+    x = espacamento
+    y = HEIGHT /2
 
+    # Criando primeira fileira com 4 botões
     jogo = Botao(assets, "Restart")
 
-    # jogo = Botao(assets, 'Instruções')
-
-    jogo.rect.x = x
-    jogo.rect.centery = y + 90
-
-    jogo1 = Botao(assets, "Quit")
-    jogo1.rect.x = x + 90
-    jogo.rect.centery = y +90
+    jogo.rect.x = x + 150
+    jogo.rect.centery = y + 150
     all_buttons.add(jogo)
-    all_buttons.add(jogo1)
 
-    # Criando segunda fileira de Botões
+    jogo = Botao(assets, "Quit")
+    jogo.rect.x = x + 550
+    jogo.rect.centery = y + 150
+    x+= jogo.rect.width + espacamento
+    espacamento = (WIDTH - (medidas_botao.rect.width * 3))/ 4
+    x = espacamento
+    y += medidas_botao.rect.height + 500
+    all_buttons.add(jogo)
     
     running = True
     while running:
@@ -84,7 +88,7 @@ def tela_final(screen):
 
 
 
-        screen.blit(assets['titulo'], (140, 90))
+        screen.blit(assets['titulo'], (140, 40))
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()

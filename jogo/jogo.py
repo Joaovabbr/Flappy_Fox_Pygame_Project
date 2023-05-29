@@ -22,5 +22,5 @@ while state != QUIT:
         state = game_screen(window)
     elif state == GAME_OVER:
         state = tela_final(window)
-
+        
 
