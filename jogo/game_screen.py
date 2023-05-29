@@ -1,4 +1,5 @@
 import pygame
+import random
 from config import FPS, WIDTH, HEIGHT, GREEN, WHITE
 from assets import load_assets
 
@@ -7,35 +8,146 @@ from assets import load_assets
 
 
 def game_screen(window):
-    # Variável para o ajuste de velocidade
-    clock = pygame.time.Clock()
+    LARGURA = 900
+    ALTURA = 500  
 
-    assets = load_assets()
+    LARGURA_RAPOSA = 75
+    ALTURA_RAPOSA = 65
 
-    DONE = 0
-    PLAYING = 1
-    state = PLAYING
+    LARGURA_TUBO = 400
+    ALTURA_TUBO = 800
 
-    # ===== Loop principal =====
-    while state != DONE:
-        clock.tick(FPS)
+    ACELERACAO = 1
+    VELOCIDADE_TUBOS = 10 
+    ESPACO_ENTRE_TUBOS = 200
+    DESLIZAR = 4
+    X = 0
+    
+    relogio = pygame.time.Clock()
+    FPS = 40
 
-        # ----- Trata eventos
+
+    pontos = 0
+    pass_tubo = False
+    font = pygame.font.SysFont('Bauhaus 93', 60)
+
+
+    amarelo = (255, 255, 0)
+    jogando = True
+
+    tela = pygame.display.set_mode((LARGURA, ALTURA))
+    pygame.display.set_caption('Flappy Fox')
+
+    img_raposa = pygame.image.load('assets/imgs/img_rap.png').convert_alpha()
+    img_raposa = pygame.transform.scale(img_raposa, (LARGURA_RAPOSA, ALTURA_RAPOSA))
+    img_fundo = pygame.image.load('assets/imgs/wallpaper.webp').convert()
+    img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
+    img_tubo = pygame.image.load('assets/imgs/tubo.PNG').convert_alpha()
+    img_tubo = pygame.transform.scale(img_tubo, (LARGURA_TUBO, ALTURA_TUBO)) 
+
+
+    def texto_pontos(text, font, cor_texto, x, y):
+        img = font.render(text, font, cor_texto)
+        tela.blit(img,(x,y))
+
+    class Raposa(pygame.sprite.Sprite):
+        def __init__(self, img):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = img
+            self.rect = self.image.get_rect()
+            self.rect.centerx = LARGURA / 2
+            self.rect.bottom = ALTURA / 2
+            self.speed_y = 0
+            self.mask = pygame.mask.from_surface(self.image)
+
+        def update(self): 
+            self.speed_y += ACELERACAO
+            self.rect.bottom += self.speed_y
+
+            if self.rect.bottom > ALTURA:
+                self.rect.bottom = ALTURA
+
+    class Tubo(pygame.sprite.Sprite):
+        def __init__(self, inverted, xpos, ypos):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = img_tubo
+            self.rect = self.image.get_rect()
+            self.rect.x = xpos
+            self.rect.height = self.image.get_height()
+
+            if inverted:
+                self.image = pygame.transform.flip(self.image, False, True)
+                self.rect.y = ypos - self.rect.height
+            else:
+                self.rect.y = ypos
+
+        def update(self):
+            self.rect.x -= VELOCIDADE_TUBOS
+
+        def get_mask(self):
+            return pygame.mask.from_surface(self.image)
+
+    todos_sprites = pygame.sprite.Group()
+    raposa_jogo = Raposa(img_raposa)
+    todos_sprites.add(raposa_jogo)
+    tubos = pygame.sprite.Group()
+
+    def criar_tubos(xpos):
+        tamanho = random.randint(100, 170)
+        tubo_inferior = Tubo(False, xpos, tamanho)
+        tubo_superior = Tubo(True, xpos, tamanho + ESPACO_ENTRE_TUBOS)
+        return (tubo_inferior, tubo_superior)
+
+    for i in range(2):
+        tubo = criar_tubos(LARGURA * i + 800)
+        tubos.add(tubo[0])
+        tubos.add(tubo[1])
+
+    while jogando:
         for event in pygame.event.get():
-            # ----- Verifica consequências
             if event.type == pygame.QUIT:
-                state = DONE
+                jogando = False
 
-        # ----- Gera saídas
-        window.fill(GREEN)  # Preenche com a cor branca
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    raposa_jogo.speed_y = -10
 
+        tela.blit(img_fundo, (0, 0))
 
-        tela_texto = assets['font_media'].render("Tela com o seu jogo", True, WHITE)
-        text_rect = tela_texto.get_rect()
-        text_rect.centerx = WIDTH / 2
-        text_rect.centery = 200
-        window.blit(tela_texto, text_rect)
+        if len(tubos) > 0:
+            if todos_sprites.sprites()[0].rect.left > tubos.sprites()[0].rect.left\
+                and todos_sprites.sprites()[0].rect.right < tubos.sprites()[0].rect.right\
+                and pass_tubo == False:
+                pass_tubo = True
+            if pass_tubo == True:
+                if todos_sprites.sprites()[0].rect.left > tubos.sprites()[0].rect.right:
+                    pontos = pontos + 1
+                    pass_tubo = False
+                    VELOCIDADE_TUBOS = VELOCIDADE_TUBOS + 0.5
 
-        pygame.display.update()  # Mostra o novo frame para o jogador
+        texto_pontos(str(pontos), font, amarelo, 450,0)
+        
+        if pygame.sprite.spritecollide(raposa_jogo, tubos, False, pygame.sprite.collide_mask):
+            jogando = False
 
-    return state
+        # Cria novos tubos
+        if len(tubos) < 3:
+            tubo = criar_tubos(LARGURA + LARGURA_TUBO)
+            tubos.add(tubo[0])
+            tubos.add(tubo[1])
+
+        todos_sprites.update()
+        tubos.update()
+
+        for tubo in tubos.copy():
+            if tubo.rect.right < 0:
+                tubos.remove(tubo)
+                todos_sprites.remove(tubo)
+
+        todos_sprites.draw(tela)
+        tubos.draw(tela)
+
+        relogio.tick(FPS)
+        pygame.display.update()
+
+    return jogando
