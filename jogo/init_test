@@ -16,7 +16,7 @@ ACELERACAO = 1
 VELOCIDADE_TUBOS = 4
 ESPACO_ENTRE_TUBOS = 200
 
-DESLISAR = 4
+DESLIZAR = 4
 X = 0
 
 relogio = pygame.time.Clock()
@@ -42,6 +42,7 @@ class Raposa(pygame.sprite.Sprite):
         self.rect.centerx = LARGURA / 2
         self.rect.bottom = ALTURA / 2
         self.speed_y = 0
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self): 
         self.speed_y += ACELERACAO
@@ -67,10 +68,12 @@ class Tubo(pygame.sprite.Sprite):
     def update(self):
         self.rect.x -= VELOCIDADE_TUBOS
 
+    def get_mask(self):
+        return pygame.mask.from_surface(self.image)
+
 todos_sprites = pygame.sprite.Group()
 raposa_jogo = Raposa(img_raposa)
 todos_sprites.add(raposa_jogo)
-
 tubos = pygame.sprite.Group()
 
 def criar_tubos(xpos):
@@ -95,15 +98,15 @@ while jogando:
 
     tela.blit(img_fundo, (0, 0))
     
-    if pygame.sprite.spritecollide(raposa_jogo, tubos, True):
+    if pygame.sprite.spritecollide(raposa_jogo, tubos, False, pygame.sprite.collide_mask):
         jogando = False
 
-        # Cria novos tubos
+    # Cria novos tubos
     if len(tubos) < 3:
         tubo = criar_tubos(LARGURA + LARGURA_TUBO)
         tubos.add(tubo[0])
         tubos.add(tubo[1])
-    
+
     todos_sprites.update()
     tubos.update()
 
@@ -114,10 +117,8 @@ while jogando:
 
     todos_sprites.draw(tela)
     tubos.draw(tela)
-    
+
     relogio.tick(FPS)
     pygame.display.update()
 
 pygame.quit()
- 
-    
