@@ -8,7 +8,7 @@ pygame.init()
 
 tela_creditos = pygame.display.set_mode((800, 600))
 
-fonte_pixel = "Pixelmania.ttf"
+fonte_pixel = "assets/fonts/Pixelmania.ttf"
 fonte_tamanho = 24
 fonte = pygame.font.Font(fonte_pixel, fonte_tamanho)
 
@@ -55,7 +55,7 @@ def game_tela_st(tela_st):
     clock = pygame.time.Clock()
 
     # Carrega a fonte pixel
-    fonte_pixel2 = "dogica.ttf"
+    fonte_pixel2 = "assets/fonts/dogica.ttf"
     fonte_tamanho2 = 13
     fonte2 = pygame.font.Font(fonte_pixel2, fonte_tamanho2)
 
@@ -153,11 +153,11 @@ jogando = True
 tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flappy Fox')
 
-img_raposa = pygame.image.load('sprites/img_rap.png').convert_alpha()
+img_raposa = pygame.image.load('assets/imgs/img_rap.png').convert_alpha()
 img_raposa = pygame.transform.scale(img_raposa, (LARGURA_RAPOSA, ALTURA_RAPOSA))
-img_fundo = pygame.image.load('sprites/wallpaper.webp').convert()
+img_fundo = pygame.image.load('assets/imgs/wallpaper.webp').convert()
 img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
-img_tubo = pygame.image.load('sprites/tubo.PNG').convert_alpha()
+img_tubo = pygame.image.load('assets/imgs/tubo.PNG').convert_alpha()
 img_tubo = pygame.transform.scale(img_tubo, (LARGURA_TUBO, ALTURA_TUBO)) 
 
 class Raposa(pygame.sprite.Sprite):
