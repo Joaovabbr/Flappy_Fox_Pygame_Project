@@ -149,15 +149,11 @@ tela_go_altura = 600
 tela_go = pygame.display.set_mode((tela_go_largura, tela_go_altura))
 pygame.display.set_caption("Game Over")
 
-font_path = "Pixelmania.ttf"
-font_size = 48
-font = pygame.font.Font(font_path, font_size)
+game_over_texto = fonte.render("Game Over", True, WHITE)
+restart_texto = fonte.render("Click to Restart", True, WHITE)
 
-game_over_text = font.render("Game Over", True, WHITE)
-restart_text = font.render("Click to Restart", True, WHITE)
-
-game_over_rect = game_over_text.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 - 50))
-restart_rect = restart_text.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 + 50))
+game_over_rect = game_over_texto.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 - 50))
+restart_rect = restart_texto.get_rect(center=(tela_go_largura // 2, tela_go_largura // 2 + 50))
 
 #se nao estiver mais jogando:
 jogando = False
@@ -172,8 +168,8 @@ while jogando:
     tela_go.fill(BLACK)
 
     # Desenhar o texto na tela
-    tela_go.blit(game_over_text, game_over_rect)
-    tela_go.blit(restart_text, restart_rect)
+    tela_go.blit(game_over_texto, game_over_rect)
+    tela_go.blit(restart_texto, restart_rect)
 
     pygame.display.flip()
 
