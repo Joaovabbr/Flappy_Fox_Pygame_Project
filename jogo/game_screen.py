@@ -152,8 +152,10 @@ def game_screen(screen):
         pygame.display.update()
 
     with open('pontuacoes.txt', 'a') as arquivo:
-        pont_fps = (str(pontos))
-        pontuacao_da_rodada = pont_fps[-1:] 
+        lista_pont_fps = []
+        lista_pont_fps.append(str(pontos))
+        print(lista_pont_fps)
+        pontuacao_da_rodada = lista_pont_fps[-1] 
         arquivo.write(pontuacao_da_rodada) 
         arquivo.write('\n')  
         
