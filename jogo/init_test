@@ -159,18 +159,21 @@ restart_rect = restart_texto.get_rect(center=(tela_go_largura // 2, tela_go_larg
 #se nao estiver mais jogando:
 
 while not jogando:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            jogando = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:  # Verificar se o mouse foi clicado
-            jogando = False
 
     tela_go.fill(BLACK)
 
     tela_go.blit(game_over_texto, game_over_rect)
     tela_go.blit(restart_texto, restart_rect)
 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            jogando = False
+            pygame.quit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:  # Verificar se o mouse foi clicado
+            jogando = True
+            
+
     pygame.display.flip()
+    pygame.display.update()
 
 
-pygame.quit()
