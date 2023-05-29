@@ -20,7 +20,6 @@ def game_screen(screen):
 
     ACELERACAO = 1
     VELOCIDADE_TUBOS = 10 
-    ESPACO_ENTRE_TUBOS = 250
     DESLIZAR = 4
     X = 0
     
@@ -94,7 +93,8 @@ def game_screen(screen):
     tubos = pygame.sprite.Group()
 
     def criar_tubos(xpos):
-        tamanho = random.randint(100, 210)
+        tamanho = random.randint(50, 250)
+        ESPACO_ENTRE_TUBOS = random.randrange(180, 285)
         tubo_inferior = Tubo(False, xpos, tamanho)
         tubo_superior = Tubo(True, xpos, tamanho + ESPACO_ENTRE_TUBOS)
         return (tubo_inferior, tubo_superior)
