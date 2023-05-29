@@ -154,3 +154,10 @@ def game_screen(screen):
     state = tela_final(screen)
 
     return state
+
+    #armazena as pontuações finais de cada rodada
+with open('pontuacoes.txt', 'a') as arquivo:
+    pont_fps = (str(pontos))
+    pontuacao_da_rodada = pont_fps[-1:] 
+    arquivo.write(pontuacao_da_rodada) 
+    arquivo.write('\n')    
