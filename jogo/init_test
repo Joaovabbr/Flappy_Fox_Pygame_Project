@@ -12,7 +12,7 @@ fonte_tamanho = 24
 fonte = pygame.font.Font(fonte_pixel, fonte_tamanho)
 
 texto = fonte.render("POWERED BY IRA", True, (255, 255, 255))
-text_rect = text.get_rect(center=(400, 300))
+text_rect = texto.get_rect(center=(400, 300))
 tela_creditos.blit(texto, text_rect)
 pygame.display.flip()
 
@@ -169,11 +169,11 @@ while jogando:
             jogando = False
 
     # Preencher a tela com a cor preta
-    screen.fill(BLACK)
+    tela_go.fill(BLACK)
 
     # Desenhar o texto na tela
-    screen.blit(game_over_text, game_over_rect)
-    screen.blit(restart_text, restart_rect)
+    tela_go.blit(game_over_text, game_over_rect)
+    tela_go.blit(restart_text, restart_rect)
 
     pygame.display.flip()
 
