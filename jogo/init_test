@@ -6,7 +6,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Carrega a fonte pixelada
-font_path = "Pixelmania.ttf"  # Substitua pelo caminho da sua fonte
+font_path = "Pixelmania.ttf"
 font_size = 24
 font = pygame.font.Font(font_path, font_size)
 
@@ -23,8 +23,6 @@ time.sleep(3)
 screen.fill((0, 0, 0))
 pygame.display.flip()
 
-# Aqui você pode adicionar o código para a tela inicial do jogo
-# Por exemplo, exibir o logotipo do jogo, menu, etc.
 
 LARGURA = 900
 ALTURA = 500  
