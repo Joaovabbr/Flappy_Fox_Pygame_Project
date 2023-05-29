@@ -19,8 +19,7 @@ def init_screen(screen):
     # O espaçamento é feito através da largura da janela menos o 
     # espaço necessário para posicionar 4 botões
     # depois é calculado o tamanho para 5 espaços vazios
-    espacamento = (WIDTH - (medidas_botao.rect.width * 2))/ 3
-    x = espacamento
+    x = WIDTH/2 - 140
     y = HEIGHT /2
 
     # Criando primeira fileira com 4 botões
@@ -32,11 +31,6 @@ def init_screen(screen):
     jogo.rect.x = x
     jogo.rect.centery = y + 90
     all_buttons.add(jogo)
-    
-    jogo1 = Botao(assets, "Instruções")
-    jogo1.rect.x = x + 400
-    jogo1.rect.centery = y + 90 
-    all_buttons.add(jogo1)
 
     # Criando segunda fileira de Botões
     
