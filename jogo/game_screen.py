@@ -111,6 +111,8 @@ def game_screen(screen):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
+                    assets = load_assets()
+                    assets['som_pulo'].play()
                     raposa_jogo.speed_y = -10
 
         tela.blit(img_fundo, (0, 0))

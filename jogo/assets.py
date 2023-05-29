@@ -24,4 +24,6 @@ def load_assets():
     assets['font_media'] = pygame.font.Font(os.path.join(FNT_DIR, 'PressStart2P.ttf'), 30)
     assets['font_pixel'] = pygame.font.Font(os.path.join(FNT_DIR, 'Pixelmania.ttf'), 22)
 
+    assets['som_pulo'] = pygame.mixer.Sound(os.path.join(SND_DIR, 'som_pulo.wav'))
+
     return assets
