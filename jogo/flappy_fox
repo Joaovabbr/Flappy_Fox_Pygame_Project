@@ -6,7 +6,7 @@ pygame.init()
 
 #CRIANDO TELA DE CRÉDITOS
 
-tela_creditos = pygame.display.set_mode((800, 600))
+tela_creditos = pygame.display.set_mode((800, 500))
 
 fonte_pixel = "assets/fonts/Pixelmania.ttf"
 fonte_tamanho = 24
