@@ -272,6 +272,13 @@ while jogando:
 
     relogio.tick(FPS)
     pygame.display.update()
+    
+    #armazena as pontuações finais de cada rodada
+with open('pontuacoes.txt', 'a') as arquivo:
+    pont_fps = (str(pontos))
+    pontuacao_da_rodada = pont_fps[-1:] 
+    arquivo.write(pontuacao_da_rodada) 
+    arquivo.write('\n')    
 
 # #TELA DE GAME OVER (GO)
 # BLACK = (0, 0, 0)
