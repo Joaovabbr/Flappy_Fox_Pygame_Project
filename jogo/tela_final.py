@@ -6,7 +6,7 @@ from config import IMG_DIR, GREEN, FPS, GAME, QUIT, WIDTH, HEIGHT, BLACK
 from assets import load_assets
 
 
-def init_screen(screen):
+def tela_final(screen):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
     assets = load_assets()
@@ -24,13 +24,18 @@ def init_screen(screen):
 
     # Criando primeira fileira com 4 botões
 
-    jogo = Botao(assets, "Jogar")
+    jogo = Botao(assets, "Restart")
 
     # jogo = Botao(assets, 'Instruções')
 
     jogo.rect.x = x
     jogo.rect.centery = y + 90
+
+    jogo1 = Botao(assets, "Quit")
+    jogo1.rect.x = x + 90
+    jogo.rect.centery = y +90
     all_buttons.add(jogo)
+    all_buttons.add(jogo1)
 
     # Criando segunda fileira de Botões
     
@@ -77,11 +82,8 @@ def init_screen(screen):
             text_rect.centery = btn.rect.centery
             screen.blit(btn_texto, text_rect)
 
-        tela_texto = assets['font_pixel'].render("F", False, BLACK)
 
-        text_rect = tela_texto.get_rect()
-        text_rect.centerx = WIDTH / 2
-        text_rect.centery = 200
+
         screen.blit(assets['titulo'], (140, 90))
         
         # Depois de desenhar tudo, inverte o display.
