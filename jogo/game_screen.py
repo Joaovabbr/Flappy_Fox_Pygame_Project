@@ -12,8 +12,8 @@ def game_screen(screen):
     LARGURA = 900
     ALTURA = 500  
 
-    LARGURA_RAPOSA = 75
-    ALTURA_RAPOSA = 65
+    LARGURA_RAPOSA = 125
+    ALTURA_RAPOSA = 115
 
     LARGURA_TUBO = 400
     ALTURA_TUBO = 800
@@ -94,7 +94,7 @@ def game_screen(screen):
 
     def criar_tubos(xpos):
         tamanho = random.randint(50, 250)
-        ESPACO_ENTRE_TUBOS = random.randrange(180, 285)
+        ESPACO_ENTRE_TUBOS = random.randrange(200, 285)
         tubo_inferior = Tubo(False, xpos, tamanho)
         tubo_superior = Tubo(True, xpos, tamanho + ESPACO_ENTRE_TUBOS)
         return (tubo_inferior, tubo_superior)
