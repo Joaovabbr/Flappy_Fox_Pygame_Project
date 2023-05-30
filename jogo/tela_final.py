@@ -63,10 +63,6 @@ def tela_final(screen):
             if event.type == pygame.QUIT:
                 state = QUIT
                 running = False
-
-            if event.type == pygame.KEYUP:
-                state = GAME
-                running = False
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if jogo.rect.collidepoint(event.pos):
