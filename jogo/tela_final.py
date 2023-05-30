@@ -42,7 +42,15 @@ def tela_final(screen):
     x = espacamento
     y += medidas_botao.rect.height + 500
     all_buttons.add(jogo1)
+
+    with open('pontuacoes.txt', 'r') as arquivo:
+        linhas = arquivo.readlines()
+        pont_do_jogador = linhas[-1]
     
+    fonte = pygame.font.SysFont('Bauhaus 93', 45) 
+    amarelo = (255, 255, 0)
+    texto = fonte.render('Pontuação = {0}'.format(pont_do_jogador), True, amarelo)
+
     running = True
     while running:
 
@@ -92,7 +100,8 @@ def tela_final(screen):
 
 
         screen.blit(assets['titulo'], (140, 40))
-        
+        screen.blit(texto, (300, 260))
+
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
 
