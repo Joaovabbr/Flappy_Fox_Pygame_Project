@@ -45,7 +45,7 @@ def tela_final(screen):
 
     with open('pontuacoes.txt', 'r') as arquivo:
         linhas = arquivo.readlines()
-        pont_do_jogador = linhas[-1]
+        pont_do_jogador = linhas[-1][:-1]
     
     fonte = pygame.font.SysFont('Bauhaus 93', 45) 
     amarelo = (255, 255, 0)

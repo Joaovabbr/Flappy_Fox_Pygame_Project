@@ -1,6 +1,6 @@
  # ===== Inicialização =====
 # ----- Importa e inicia pacotes
-import pygame
+import pygame   
 import random
 from config import WIDTH, HEIGHT, INIT, GAME, QUIT, GAME_OVER, INSTRUCOES
 from init_screen import init_screen
