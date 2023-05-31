@@ -11,6 +11,6 @@ Rafaella Rapozero Generoso
 
 Antonio Anderson de Araujo Juliao
 
-Explicação de como rodar o jogo: (será inserida futuramente)
+Explicação de como rodar o jogo: Instale o arquivo em ZIP pelo GitHub, descompacte a pasta em seu aparelho, abra a pasta no VS Code ou em arquivos de edição de código similares, garanta que tem o Python e o Pygame previamente instalados em sua máquina também, abra a pasta geral 'jogo' e dentro dela abra o arquivo 'jogo.py' no seu editor e rode na sua máquina, uma nova janela que contém o título do jogo 'FLAPPY FOX' deve abrir, leia as instruções se achar necessário ou clique diretamente no botão 'Jogar'. É só teclar espaço para fazer a raposa pular e passar pelos obstáculos"!!
 
-Vídeo curto apresentando o jogo: (será inserido futuramente)
+Vídeo mostrando o jogo: https://youtu.be/WfI8i5Hi-AA 
