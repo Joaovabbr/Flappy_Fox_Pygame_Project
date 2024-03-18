@@ -1,27 +1,19 @@
 import pygame
 import random
-from config import FPS, WIDTH, HEIGHT, GREEN, WHITE
+from config import load_img, LARGURA_RAPOSA, WIDTH, HEIGHT, ALTURA_RAPOSA, LARGURA_TUBO, ALTURA_TUBO #remove import config 
 from assets import load_assets
 from tela_final import tela_final
+from sprites import Raposa, Tubo
+#importar class raposa e tubo 
 
 
 
 
 
-def game_screen(screen):
-    LARGURA = 900
-    ALTURA = 500  
-
-    LARGURA_RAPOSA = 125
-    ALTURA_RAPOSA = 115
-
-    LARGURA_TUBO = 400
-    ALTURA_TUBO = 800
-
-    ACELERACAO = 1
+def game_screen(screen): 
+    LARGURA = WIDTH
+    ALTURA = HEIGHT
     VELOCIDADE_TUBOS = 10 
-    DESLIZAR = 4
-    X = 0
     
     relogio = pygame.time.Clock()
     FPS = 40
@@ -38,59 +30,19 @@ def game_screen(screen):
     tela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption('Flappy Fox')
 
-    img_raposa = pygame.image.load('assets/imgs/img_rap.png').convert_alpha()
-    img_raposa = pygame.transform.scale(img_raposa, (LARGURA_RAPOSA, ALTURA_RAPOSA))
-    img_fundo = pygame.image.load('assets/imgs/wallpaper.webp').convert()
-    img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
-    img_tubo = pygame.image.load('assets/imgs/tubo.PNG').convert_alpha()
-    img_tubo = pygame.transform.scale(img_tubo, (LARGURA_TUBO, ALTURA_TUBO)) 
-
+    img_raposa = load_img('assets/imgs/img_rap.png', LARGURA_RAPOSA,ALTURA_RAPOSA)
+    img_fundo = load_img('assets/imgs/wallpaper.webp', LARGURA, ALTURA)
 
     def texto_pontos(text, font, cor_texto, x, y):
         img = font.render(text, font, cor_texto)
         tela.blit(img,(x,y))
 
-    class Raposa(pygame.sprite.Sprite):
-        def __init__(self, img):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = img
-            self.rect = self.image.get_rect()
-            self.rect.centerx = LARGURA / 2
-            self.rect.bottom = ALTURA / 2
-            self.speed_y = 0
-            self.mask = pygame.mask.from_surface(self.image)
-
-        def update(self): 
-            self.speed_y += ACELERACAO
-            self.rect.bottom += self.speed_y
-
-            if self.rect.bottom > ALTURA:
-                self.rect.bottom = ALTURA
-
-    class Tubo(pygame.sprite.Sprite):
-        def __init__(self, inverted, xpos, ypos):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = img_tubo
-            self.rect = self.image.get_rect()
-            self.rect.x = xpos
-            self.rect.height = self.image.get_height()
-
-            if inverted:
-                self.image = pygame.transform.flip(self.image, False, True)
-                self.rect.y = ypos - self.rect.height
-            else:
-                self.rect.y = ypos
-
-        def update(self):
-            self.rect.x -= VELOCIDADE_TUBOS
-
-        def get_mask(self):
-            return pygame.mask.from_surface(self.image)
-
+    
     todos_sprites = pygame.sprite.Group()
     raposa_jogo = Raposa(img_raposa)
     todos_sprites.add(raposa_jogo)
-    tubos = pygame.sprite.Group()
+    tubos = pygame.sprite.Group() 
+    #Criar variavel quantidade de tubos ou metodo 
 
     def criar_tubos(xpos):
         tamanho = random.randint(50, 250)
